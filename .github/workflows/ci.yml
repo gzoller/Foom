@@ -55,8 +55,13 @@ jobs:
 
       - run: sbt '++ ${{ matrix.scala }}' coverage test
 
+      - name: showme
+        run: echo 'branch ${{github.ref}}'
+
+      - run: sbt '++ ${{ matrix.scala }}' coverageReport
+
       - name: Coveralls
-        if: endsWith(github.ref, 'main')
+        if: contains(github.ref, 'release')
         uses: coverallsapp/github-action@v2
 
       - name: Make target directories
