@@ -6,7 +6,7 @@ ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec(Zulu, "8"))
 ThisBuild / githubWorkflowOSes := Seq("ubuntu-latest")
 ThisBuild / githubWorkflowBuild := Seq(WorkflowStep.Sbt(List("coverage", "test")))
 ThisBuild / githubWorkflowBuildPostamble := Seq(
-  WorkflowStep.Run(commands = List("echo 'branch ${{github.ref}}'"), name = Some("showme")),
+  WorkflowStep.Run(commands = List("echo 'branch ${{github.ref}} and headref ${{GITHUB_HEAD_REF}}'"), name = Some("showme")),
   WorkflowStep.Use(cond = Some("""endsWith(github.ref, 'release')"""), ref = UseRef.Public("coverallsapp","github-action", "v2"), name = Some("Coveralls"))
 )
 

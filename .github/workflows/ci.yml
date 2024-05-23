@@ -56,7 +56,7 @@ jobs:
       - run: sbt '++ ${{ matrix.scala }}' coverage test
 
       - name: showme
-        run: echo 'branch ${{github.ref}}'
+        run: echo 'branch ${{github.ref}} and headref ${{GITHUB_HEAD_REF}}'
 
       - name: Coveralls
         if: endsWith(github.ref, 'release')
