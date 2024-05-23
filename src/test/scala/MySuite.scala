@@ -6,4 +6,10 @@ class MySuite extends munit.FunSuite {
     val expected = 42
     assertEquals(obtained, expected)
   }
+  test("something") {
+    assertEquals(msg, "I was compiled by Scala 3. :)")
+  }
+  test("hello worked") {
+    assertEquals(hello(), ())
+  }
 }
