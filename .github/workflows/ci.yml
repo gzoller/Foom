@@ -59,7 +59,7 @@ jobs:
         run: echo 'branch ${{github.ref}}'
 
       - name: Coveralls
-        if: endsWith(github.ref, 'release')
+        if: contains(github.ref, 'release')
         uses: coverallsapp/github-action@v2
 
       - name: Make target directories
