@@ -58,6 +58,8 @@ jobs:
       - name: showme
         run: echo 'branch ${{github.ref}}'
 
+      - run: sbt '++ ${{ matrix.scala }}' coverageReport
+
       - name: Coveralls
         if: contains(github.ref, 'release')
         uses: coverallsapp/github-action@v2
