@@ -56,7 +56,7 @@ jobs:
       - run: sbt '++ ${{ matrix.scala }}' coverage test
 
       - name: Coveralls
-        if: ${{github.ref endsWith('main')}}
+        if: endsWith(github.ref, 'main')
         uses: coverallsapp/github-action@v2
 
       - name: Make target directories
