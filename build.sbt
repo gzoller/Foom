@@ -5,7 +5,7 @@ ThisBuild / scalaVersion := "3.4.2"
 ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec(Zulu, "8"))
 ThisBuild / githubWorkflowOSes := Seq("ubuntu-latest")
 ThisBuild / githubWorkflowBuild := Seq(WorkflowStep.Sbt(List("coverage", "test")))
-ThisBuild / githubWorkflowBuildPostamble := Seq(WorkflowStep.Use(cond = Some("""${{github.ref == "main"}}"""), ref = UseRef.Public("coverallsapp","github-action", "v2"), name = Some("Coveralls")))
+ThisBuild / githubWorkflowBuildPostamble := Seq(WorkflowStep.Use(cond = Some("""${{github.ref endsWith('main')}}"""), ref = UseRef.Public("coverallsapp","github-action", "v2"), name = Some("Coveralls")))
 
 //final case class Public(owner: String, repo: String, ref: String)
 
