@@ -1,0 +1,54 @@
+name: Coveralls Publish
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+concurrency:
+  group: ${{ github.workflow }} @ ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and Test
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        scala: [3]
+        java: [zulu@8]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - name: Checkout current branch (full)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java (zulu@8)
+        id: setup-java-zulu-8
+        if: matrix.java == 'zulu@8'
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 8
+          cache: sbt
+
+      - name: sbt update
+        if: matrix.java == 'zulu@8' && steps.setup-java-zulu-8.outputs.cache-hit == 'false'
+        run: sbt +update
+
+      - name: Check that workflows are up to date
+        run: sbt githubWorkflowCheck
+
+      - name: Build project
+        run: sbt '++ ${{ matrix.scala }}' coverage test
+
+      - run: sbt '++ ${{ matrix.scala }}' coverageReport
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2

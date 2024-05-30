@@ -10,8 +10,8 @@ class MySuite extends munit.FunSuite {
   test("something") {
     assertEquals(msg, "I was compiled by Scala 3. :)")
   }
+  */
   test("hello worked") {
     assertEquals(hello(), ())
   }
-*/
 }
