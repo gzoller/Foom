@@ -4,12 +4,12 @@ ThisBuild / organization := "co.blocke"
 ThisBuild / scalaVersion := "3.4.2"
 ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec(Zulu, "8"))
 ThisBuild / githubWorkflowOSes := Seq("ubuntu-latest")
-ThisBuild / githubWorkflowBuild := Seq(WorkflowStep.Sbt(List("coverage", "test")))
-ThisBuild / githubWorkflowBuildPostamble := Seq(
-  WorkflowStep.Run(commands = List("echo 'branch ${{github.ref}}'"), name = Some("showme")),
-  WorkflowStep.Sbt(List("coverageReport")),
-  WorkflowStep.Use(cond = Some("""contains(github.ref, 'release')"""), ref = UseRef.Public("coverallsapp","github-action", "v2"), name = Some("Coveralls"))
-)
+// ThisBuild / githubWorkflowBuild := Seq(WorkflowStep.Sbt(List("coverage", "test")))
+// ThisBuild / githubWorkflowBuildPostamble := Seq(
+//   WorkflowStep.Run(commands = List("echo 'branch ${{github.ref}}'"), name = Some("showme")),
+//   WorkflowStep.Sbt(List("coverageReport")),
+//   WorkflowStep.Use(cond = Some("""contains(github.ref, 'release')"""), ref = UseRef.Public("coverallsapp","github-action", "v2"), name = Some("Coveralls"))
+// )
 
   // final case class Run(commands: List[String], id: Option[String] = None, name: Option[String] = None, cond: Option[String] = None, env: Map[String, String] = Map(), params: Map[String, String] = Map(), timeout: Option[FiniteDuration] = None) extends WorkflowStep
   // final case class Sbt(commands: List[String], id: Option[String] = None, name: Option[String] = None, cond: Option[String] = None, env: Map[String, String] = Map(), params: Map[String, String] = Map(), timeout: Option[FiniteDuration] = None) extends WorkflowStep

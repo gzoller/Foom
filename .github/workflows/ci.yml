@@ -53,16 +53,8 @@ jobs:
       - name: Check that workflows are up to date
         run: sbt githubWorkflowCheck
 
-      - run: sbt '++ ${{ matrix.scala }}' coverage test
-
-      - name: showme
-        run: echo 'branch ${{github.ref}}'
-
-      - run: sbt '++ ${{ matrix.scala }}' coverageReport
-
-      - name: Coveralls
-        if: contains(github.ref, 'release')
-        uses: coverallsapp/github-action@v2
+      - name: Build project
+        run: sbt '++ ${{ matrix.scala }}' test
 
       - name: Make target directories
         if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main')
